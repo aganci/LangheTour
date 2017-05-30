@@ -1,9 +1,11 @@
 package com.langhetour;
 
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,5 +25,10 @@ public class MainActivity extends AppCompatActivity {
                 .addImage(R.drawable.castello_prunetto, "Castello di Prunetto")
                 .addImage(R.drawable.castello_saliceto, "Castello di Saliceto")
                 .addImage(R.drawable.castello_monesiglio, "Castello di Monesiglio");
+    }
+
+    public void goToTourActivity(View view) {
+        Intent intent = new Intent(this, TourActivity.class);
+        startActivity(intent);
     }
 }

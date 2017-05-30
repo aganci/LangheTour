@@ -5,6 +5,7 @@
     <color name="colorAccent">#E91E63</color>
 
     <color name="overflowMenuBg">#fffcfff6</color>
+    <color name="details_separator">#E0E0E0</color>
 
     <!-- Grey Color Shades -->
     <color name="grey_25">#FDFDFD</color>
