@@ -31,7 +31,7 @@ public class GridBuilder {
     public GridBuilder addCategory(String title) {
         TextView textView = new TextView(context);
         generateId(textView);
-        textView.setBackgroundColor(Color.RED);
+        textView.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
         textView.setTextColor(Color.WHITE);
         textView.setText(title);
         textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
