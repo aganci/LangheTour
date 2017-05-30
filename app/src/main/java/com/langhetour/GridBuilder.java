@@ -1,10 +1,12 @@
 package com.langhetour;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,7 +49,7 @@ public class GridBuilder {
         titleView.setBackgroundColor(Color.TRANSPARENT);
         titleView.setTextColor(Color.WHITE);
         titleView.setText(title);
-        setMargins(titleView, getMargin() * 16, 0, 0, getMargin() * 16);
+        setMargins(titleView, getPixels(16), 0, 0, getPixels(16));
         layout.addView(titleView);
 
         ConstraintSet constraints = new ConstraintSet();
@@ -75,7 +77,7 @@ public class GridBuilder {
     private void applyConstraints(View view) {
         Integer id = viewsId.get(viewsId.size() - 1);
         if (viewsId.size() == 1) {
-            setMargins(view, 0,0,getMargin(),0);
+            setMargins(view, 0,0, getPixels(1),0);
             layout.addView(view);
             ConstraintSet constraints = createContraintSet(id);
             constraints.connect(id, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
@@ -83,7 +85,7 @@ public class GridBuilder {
             constraints.connect(id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
             constraints.applyTo(layout);
         } else if (viewsId.size() == 2) {
-            setMargins(view, getMargin(),0,0,0);
+            setMargins(view, getPixels(1),0,0,0);
             layout.addView(view);
             ConstraintSet constraints = createContraintSet(id);
             constraints.connect(id, ConstraintSet.LEFT, guidelineID, ConstraintSet.RIGHT);
@@ -91,7 +93,7 @@ public class GridBuilder {
             constraints.connect(id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
             constraints.applyTo(layout);
         } else if (viewsId.size() % 2 == 1) {
-            setMargins(view, 0, getMargin() * 2,  getMargin(), 0);
+            setMargins(view, 0, getPixels(2),  getPixels(1), 0);
             layout.addView(view);
             ConstraintSet constraints = createContraintSet(id);
             constraints.connect(id, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
@@ -99,7 +101,7 @@ public class GridBuilder {
             constraints.connect(id, ConstraintSet.TOP, viewsId.get(viewsId.size() - 3), ConstraintSet.BOTTOM);
             constraints.applyTo(layout);
         } else if (viewsId.size() % 2 == 0) {
-            setMargins(view, getMargin(), getMargin() * 2,  0, 0);
+            setMargins(view, getPixels(1), getPixels(2),  0, 0);
             layout.addView(view);
             ConstraintSet constraints = createContraintSet(id);
             constraints.connect(id, ConstraintSet.LEFT, guidelineID, ConstraintSet.RIGHT);
@@ -134,7 +136,8 @@ public class GridBuilder {
         view.setId(id);
     }
 
-    public int getMargin() {
-        return 1;
+    public int getPixels(int dpi) {
+        Resources r = context.getResources();
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpi, r.getDisplayMetrics());
     }
 }
