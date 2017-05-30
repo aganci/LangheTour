@@ -14,6 +14,14 @@ public class MainActivity extends AppCompatActivity {
         new GridBuilder((ConstraintLayout) findViewById(R.id.main_constraint_layout), this)
                 .addCategory("Visitare")
                 .addImage(R.drawable.castello_prunetto)
+                .addImage(R.drawable.castello_saliceto)
+                .addImage(R.drawable.castello_prunetto)
+                .addImage(R.drawable.castello_saliceto)
+                .addImage(R.drawable.castello_prunetto)
+                .addImage(R.drawable.castello_saliceto)
+                .addImage(R.drawable.castello_prunetto)
+                .addImage(R.drawable.castello_saliceto)
+                .addImage(R.drawable.castello_prunetto)
                 .addImage(R.drawable.castello_saliceto);
     }
 }
