@@ -6,7 +6,9 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
+import android.support.constraint.solver.SolverVariable;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,6 +34,8 @@ public class GridBuilder {
         textView.setBackgroundColor(Color.RED);
         textView.setTextColor(Color.WHITE);
         textView.setText(title);
+        textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
 
         applyConstraints(textView);
         return this;
