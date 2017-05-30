@@ -35,12 +35,31 @@ public class GridBuilder {
         return this;
     }
 
-    public GridBuilder addImage(int resourceId) {
+    public GridBuilder addImage(int resourceId, String title) {
         ImageView imageView = new ImageView(context);
         generateId(imageView);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setImageResource(resourceId);
         applyConstraints(imageView);
+
+        TextView titleView = new TextView(context);
+        titleView.setId(View.generateViewId());
+        titleView.setBackgroundColor(Color.TRANSPARENT);
+        titleView.setTextColor(Color.WHITE);
+        titleView.setText(title);
+        setMargins(titleView, getMargin() * 16, 0, 0, getMargin() * 16);
+        layout.addView(titleView);
+
+        ConstraintSet constraints = new ConstraintSet();
+        constraints.clone(layout);
+        constraints.constrainWidth(titleView.getId(), ConstraintSet.MATCH_CONSTRAINT);
+        constraints.constrainHeight(titleView.getId(), ConstraintSet.WRAP_CONTENT);
+        constraints.connect(titleView.getId(), ConstraintSet.LEFT, imageView.getId(), ConstraintSet.LEFT);
+        constraints.connect(titleView.getId(), ConstraintSet.RIGHT, imageView.getId(), ConstraintSet.RIGHT);
+        constraints.connect(titleView.getId(), ConstraintSet.BOTTOM, imageView.getId(), ConstraintSet.BOTTOM);
+        constraints.applyTo(layout);
+
+
         return this;
     }
 
