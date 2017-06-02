@@ -9,10 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class TourActivity extends AppCompatActivity {
     public static final String EXTRA_IMAGE_RESOURCE_ID = "com.langhetour.imageResourceId";
     public static final String EXTRA_TITLE = "com.langhetour.title";
+    public static final String EXTRA_FULL_ADDRESS = "com.langhetour.fullAddress";
 
     private Toolbar toolbar;
 
@@ -24,6 +26,12 @@ public class TourActivity extends AppCompatActivity {
         makeContentAppearBehindStatusBar();
         setUpToolbar();
         setUpImageView();
+        setUpDetails();
+    }
+
+    private void setUpDetails() {
+        TextView textView = (TextView) findViewById(R.id.full_address);
+        textView.setText(getIntent().getStringExtra(EXTRA_FULL_ADDRESS));
     }
 
     private void setUpImageView() {
