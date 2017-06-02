@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Langhe Tour</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="show_map">Mostra Mappa</string>
 </resources>
