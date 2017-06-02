@@ -5,52 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_place_white_24dp"
-            android:tint="@color/colorPrimaryDark"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="20dp"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="72dp"
-            android:layout_marginTop="16dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:text="Indirizzo"/>
-            <TextView
-                android:id="@+id/full_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Via Roma, 24"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:text="Portami qui"
-                android:textAllCaps="true"
-                android:textColor="@color/colorAccent"
-                android:textSize="14sp"
-                />
-        </LinearLayout>
-
-    </RelativeLayout>
+    <include layout="@layout/get_directions"></include>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
