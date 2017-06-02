@@ -1,5 +1,7 @@
 package com.langhetour.models;
 
+import android.content.Context;
+
 import com.langhetour.GridBuilder;
 
 public class CategoryItem extends TourItem {
@@ -10,7 +12,7 @@ public class CategoryItem extends TourItem {
     }
 
     @Override
-    public void addTo(GridBuilder gridBuilder) {
+    public void addTo(GridBuilder gridBuilder, Context context) {
         gridBuilder.addCategory(title);
     }
 }

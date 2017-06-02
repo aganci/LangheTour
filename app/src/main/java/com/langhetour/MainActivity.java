@@ -21,12 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         GridBuilder gridBuilder = new GridBuilder((ConstraintLayout) findViewById(R.id.main_constraint_layout), this);
         for (TourItem item : TourItem.ITEMS) {
-            item.addTo(gridBuilder);
+            item.addTo(gridBuilder, this);
         }
-    }
-
-    public void goToTourActivity(View view) {
-        Intent intent = new Intent(this, TourActivity.class);
-        startActivity(intent);
     }
 }

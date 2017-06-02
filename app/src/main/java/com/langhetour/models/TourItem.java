@@ -1,5 +1,7 @@
 package com.langhetour.models;
 
+import android.content.Context;
+
 import com.langhetour.GridBuilder;
 import com.langhetour.R;
 
@@ -11,5 +13,5 @@ public abstract class TourItem {
             new LocationItem(R.drawable.castello_monesiglio, "Castello di Monesiglio"),
     };
 
-    public abstract void addTo(GridBuilder gridBuilder);
+    public abstract void addTo(GridBuilder gridBuilder, Context context);
 }

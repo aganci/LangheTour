@@ -41,7 +41,7 @@ public class GridBuilder {
         return this;
     }
 
-    public GridBuilder addImage(int resourceId, String title) {
+    public GridBuilder addImage(int resourceId, String title, View.OnClickListener onClickListener) {
         ImageView imageView = new ImageView(context);
         generateId(imageView);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -65,6 +65,7 @@ public class GridBuilder {
         constraints.connect(titleView.getId(), ConstraintSet.BOTTOM, imageView.getId(), ConstraintSet.BOTTOM);
         constraints.applyTo(layout);
 
+        imageView.setOnClickListener(onClickListener);
 
         return this;
     }

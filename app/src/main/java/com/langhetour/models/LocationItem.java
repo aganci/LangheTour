@@ -1,11 +1,19 @@
 package com.langhetour.models;
 
-import com.langhetour.GridBuilder;
-import com.langhetour.R;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+import android.view.View;
 
-public class LocationItem extends TourItem {
+import com.langhetour.GridBuilder;
+import com.langhetour.TourActivity;
+
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+
+public class LocationItem extends TourItem implements View.OnClickListener {
     private int resourceId;
     private String title;
+    private Context context;
 
     public LocationItem(int resourceId, String title) {
         this.resourceId = resourceId;
@@ -13,7 +21,16 @@ public class LocationItem extends TourItem {
     }
 
     @Override
-    public void addTo(GridBuilder gridBuilder) {
-        gridBuilder.addImage(resourceId, title);
+    public void addTo(GridBuilder gridBuilder, Context context) {
+        this.context = context;
+        gridBuilder.addImage(resourceId, title, this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(this.context, TourActivity.class);
+        intent.putExtra(TourActivity.EXTRA_TITLE, this.title);
+        intent.putExtra(TourActivity.EXTRA_IMAGE_RESOURCE_ID, this.resourceId);
+        context.startActivity(intent);
     }
 }
