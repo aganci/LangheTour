@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.langhetour.models.TourItem;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -17,14 +19,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getResources().getString(R.string.app_name));
 
-        new GridBuilder((ConstraintLayout) findViewById(R.id.main_constraint_layout), this)
-                .addCategory("Visitare")
-                .addImage(R.drawable.castello_prunetto, "Castello di Prunetto")
-                .addImage(R.drawable.castello_saliceto, "Castello di Saliceto")
-                .addImage(R.drawable.castello_monesiglio, "Castello di Monesiglio")
-                .addImage(R.drawable.castello_prunetto, "Castello di Prunetto")
-                .addImage(R.drawable.castello_saliceto, "Castello di Saliceto")
-                .addImage(R.drawable.castello_monesiglio, "Castello di Monesiglio");
+        GridBuilder gridBuilder = new GridBuilder((ConstraintLayout) findViewById(R.id.main_constraint_layout), this);
+        for (TourItem item : TourItem.ITEMS) {
+            item.addTo(gridBuilder);
+        }
     }
 
     public void goToTourActivity(View view) {
