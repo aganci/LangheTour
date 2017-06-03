@@ -4,6 +4,9 @@ import android.content.res.Resources;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.View;
+import android.view.ViewTreeObserver;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,10 +17,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.langhetour.models.LocationItem;
+import com.langhetour.models.TourItem;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
+    private LatLngBounds.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+
+        final View view = mapFragment.getView();
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                view.getHeight(); //height is ready
+            }
+        });
         mapFragment.getMapAsync(this);
     }
 
@@ -41,7 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -56,14 +71,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.e(TAG, "Can't find style. Error: ", e);
         }
 
-        // Add a marker in Sydney and move the camera
-        LatLng monesiglio = new LatLng(44.464808, 8.119082);
+        builder = new LatLngBounds.Builder();
 
-        googleMap.addMarker(
-                new MarkerOptions()
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_pin))
-                        .position(monesiglio)
-                        .title("Castello di Monesiglio"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(monesiglio));
+        for (TourItem item : TourItem.ITEMS) {
+            item.addMarker(googleMap, builder);
+        }
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        final View mapView = mapFragment.getView();
+
+        mapView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            public void onGlobalLayout() {
+                mapView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), mapView.getWidth(), mapView.getHeight(), getPixels(64)));
+            }
+        });
+    }
+
+    public int getPixels(int dpi) {
+        Resources r = getResources();
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpi, r.getDisplayMetrics());
     }
 }
